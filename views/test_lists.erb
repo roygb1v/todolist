@@ -1,0 +1,31 @@
+<ul id="lists">
+  <% @lists.each_with_index do |list, index| %>
+      <% @lists[index][:todos].each do |list| %>
+        <% if list[:completed] %>
+          <% @count += 1%>  
+        <% end %>
+      <% end %>
+
+    <% if @count == list[:todos].size %>
+        <li class="complete">
+          <a href="/lists/<%= index %>">
+            <h2><%= list[:name] %></h2>
+            <p><%= @count %> / <%= list[:todos].size %></p>
+          </a>
+        </li>
+    <% else %>
+        <li>
+          <a href="/lists/<%= index %>">
+            <h2><%= list[:name] %></h2>
+            <p><%= @count %> / <%= list[:todos].size %></p>
+          </a>
+        </li>
+    <% end %>
+  <% @count = 0 %>
+  <% end %>
+</ul>
+
+<% content_for :header_links do %>
+  <p><a class="add" href="/lists/new">New List</a></p>
+<% end %>
+
